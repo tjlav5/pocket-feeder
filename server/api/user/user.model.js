@@ -3,9 +3,14 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var crypto = require('crypto');
-var authTypes = ['github', 'twitter', 'facebook', 'google'];
+var authTypes = ['github', 'twitter', 'facebook', 'google', 'pocket'];
 
 var UserSchema = new Schema({
+  username: String,
+  pocket: {
+    username: String,
+    accessToken: String
+  },
   name: String,
   email: { type: String, lowercase: true },
   role: {
@@ -58,27 +63,27 @@ UserSchema
  */
 
 // Validate empty email
-UserSchema
-  .path('email')
-  .validate(function(email) {
-    if (authTypes.indexOf(this.provider) !== -1) return true;
-    return email.length;
-  }, 'Email cannot be blank');
+// UserSchema
+//   .path('email')
+//   .validate(function(email) {
+//     if (authTypes.indexOf(this.provider) !== -1) return true;
+//     return email.length;
+//   }, 'Email cannot be blank');
+// 
+// // Validate empty password
+// UserSchema
+//   .path('hashedPassword')
+//   .validate(function(hashedPassword) {
+//     if (authTypes.indexOf(this.provider) !== -1) return true;
+//     return hashedPassword.length;
+//   }, 'Password cannot be blank');
 
-// Validate empty password
+// Validate username is not taken
 UserSchema
-  .path('hashedPassword')
-  .validate(function(hashedPassword) {
-    if (authTypes.indexOf(this.provider) !== -1) return true;
-    return hashedPassword.length;
-  }, 'Password cannot be blank');
-
-// Validate email is not taken
-UserSchema
-  .path('email')
+  .path('username')
   .validate(function(value, respond) {
     var self = this;
-    this.constructor.findOne({email: value}, function(err, user) {
+    this.constructor.findOne({username: value}, function(err, user) {
       if(err) throw err;
       if(user) {
         if(self.id === user.id) return respond(true);
@@ -86,7 +91,7 @@ UserSchema
       }
       respond(true);
     });
-}, 'The specified email address is already in use.');
+  });
 
 var validatePresenceOf = function(value) {
   return value && value.length;
@@ -99,7 +104,7 @@ UserSchema
   .pre('save', function(next) {
     if (!this.isNew) return next();
 
-    if (!validatePresenceOf(this.hashedPassword) && authTypes.indexOf(this.provider) === -1)
+    if (authTypes.indexOf(this.provider) === -1)
       next(new Error('Invalid password'));
     else
       next();
