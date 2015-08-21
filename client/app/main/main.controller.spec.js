@@ -4,6 +4,7 @@ describe('Controller: MainCtrl', function () {
 
   // load the controller's module
   beforeEach(module('pocketFeederApp'));
+  beforeEach(module('stateMock'));
   beforeEach(module('socketMock'));
 
   var MainCtrl,
