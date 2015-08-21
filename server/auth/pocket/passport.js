@@ -1,5 +1,6 @@
 var passport = require('passport');
 var PocketStrategy = require('passport-pocket');
+var config = require('../../config/environment');
 
 // Passport Set serializers
 passport.serializeUser(function(user, done) {
@@ -13,8 +14,8 @@ passport.deserializeUser(function(obj, done) {
 exports.setup = function (User, config) {
   console.log('checking pocket');
   passport.use(new PocketStrategy({
-      consumerKey    : "44740-61ba907010f7a4e13f7e910f",
-      callbackURL    : "http://127.0.0.1:9000/auth/pocket/callback"
+      consumerKey    : config.pocket.clientSecret,
+      callbackURL    : config.pocket.callbackURL
     },
     function (username, accessToken, done) {
       console.log(username);

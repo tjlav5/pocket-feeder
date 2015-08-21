@@ -48,7 +48,7 @@ var all = {
   },
 
   pocket: {
-    clientSecret: proccess.env.POCKET_SECRET
+    clientSecret: process.env.POCKET_SECRET
   },
 
   nyt: {

@@ -21,5 +21,8 @@ module.exports = {
             'mongodb://localhost/pocketfeeder'
   },
 
+  pocket: {
+    callbackURL: 'http://feed.lavelle.io/auth/pocket/callback'
+  }
 
 };
