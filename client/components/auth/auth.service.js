@@ -45,6 +45,8 @@ angular.module('pocketFeederApp')
        * @param  {Function}
        */
       logout: function() {
+        $cookieStore.remove('token');
+        currentUser = {};
         $http.delete('/auth/session').then(function () {
           $cookieStore.remove('token');
           currentUser = {};

@@ -1,0 +1,8 @@
+<md-list>
+  <md-subheader class="md-no-sticky">NYTimes Sections</md-subheader>
+  <md-list-item ng-repeat="section in ctrl.sections">
+    <p> {{ section.type }} </p>
+    <md-checkbox class="md-secondary" ng-model="section.active"></md-checkbox>
+  </md-list-item>
+</md-list>
+<md-button class="md-raised md-primary" ng-click="ctrl.archive()">Archive</md-button>

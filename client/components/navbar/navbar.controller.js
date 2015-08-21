@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('pocketFeederApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth, $window) {
+  .controller('NavbarCtrl', function ($scope, $location, Auth, $window, $state) {
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
@@ -18,7 +18,7 @@ angular.module('pocketFeederApp')
 
     $scope.logout = function() {
       Auth.logout();
-      $location.path('/');
+      $state.go('main.loggedOut');
     };
 
     $scope.isActive = function(route) {

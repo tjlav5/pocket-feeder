@@ -47,12 +47,17 @@ angular.module('pocketFeederApp', [
     };
   })
 
-  .run(function ($rootScope, $location, Auth) {
+  .run(function ($rootScope, $state, Auth) {
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
+      console.log(Auth.isLoggedIn());
       Auth.isLoggedInAsync(function(loggedIn) {
+        console.log(next.authenticate, loggedIn, next);
         if (next.authenticate && !loggedIn) {
-          $location.path('/login');
+          $state.go('main.loggedOut');
+        }
+        if (loggedIn && next.name === 'main.loggedOut') {
+          $state.go('main.loggedIn');
         }
       });
     });

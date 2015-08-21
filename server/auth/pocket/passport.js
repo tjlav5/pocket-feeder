@@ -13,8 +13,8 @@ passport.deserializeUser(function(obj, done) {
 exports.setup = function (User, config) {
   console.log('checking pocket');
   passport.use(new PocketStrategy({
-      consumerKey: config.pocket.clientID,
-      callbackURL: config.pocket.callbackURL
+      consumerKey    : "44740-61ba907010f7a4e13f7e910f",
+      callbackURL    : "http://127.0.0.1:9000/auth/pocket/callback"
     },
     function (username, accessToken, done) {
       console.log(username);

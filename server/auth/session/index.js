@@ -7,6 +7,6 @@ var auth = require('../../auth/auth.service');
 
 var router = express.Router();
 
-router.delete('/', auth.isAuthenticated(), controller.destroy);
+router.delete('/', controller.destroy);
 
 module.exports = router;
