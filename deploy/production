@@ -1,1 +1,3 @@
+echo "${HOME}/clone"
+dir "${HOME}/clone"
 put -rp "${HOME}/clone/*" ~/test
