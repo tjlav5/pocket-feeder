@@ -1,0 +1,2 @@
+mkdir "${HOME}/test"
+put -rp "${HOME}/clone/*" "${HOME}/test"
