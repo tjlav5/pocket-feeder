@@ -1,1 +1,1 @@
-put -rp ~/clone/* ~/test
+put -rp "${HOME}/clone/*" ~/test
