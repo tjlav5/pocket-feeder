@@ -10,8 +10,16 @@ angular.module('pocketFeederApp', [
   'ui.bootstrap'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $mdThemingProvider) {
+
+    $stateProvider
+      .state('auth', {
+        abstract: true,
+        templateUrl: 'components/layout/loggedIn.html',
+        authenticate: true
+      });
+
     $urlRouterProvider
-      .otherwise('/');
+      .otherwise('/nytimes');
 
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('authInterceptor');
@@ -48,16 +56,16 @@ angular.module('pocketFeederApp', [
   })
 
   .run(function ($rootScope, $state, Auth) {
+    $rootScope.$state = $state;
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
-      console.log(Auth.isLoggedIn());
       Auth.isLoggedInAsync(function(loggedIn) {
-        console.log(next.authenticate, loggedIn, next);
         if (next.authenticate && !loggedIn) {
-          $state.go('main.loggedOut');
+          event.preventDefault();
+          $state.go('login');
         }
-        if (loggedIn && next.name === 'main.loggedOut') {
-          $state.go('main.loggedIn');
+        if (loggedIn && next.name === 'login') {
+          $state.go('auth.nytimes');
         }
       });
     });

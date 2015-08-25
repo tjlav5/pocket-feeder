@@ -8,53 +8,39 @@ var config = require('../../config/environment');
 // Get list of nytimess
 exports.index = function(req, res) {
   var sections = [
-    {type: 'home'},
-    {type: 'world'},
-    {type: 'national'},
-    {type: 'politics'},
-    {type: 'nyregion'},
-    {type: 'business'},
-    {type: 'opinion'},
-    {type: 'technology'},
-    {type: 'science'},
-    {type: 'health'},
-    {type: 'sports'},
-    {type: 'arts'},
-    {type: 'fashion'},
-    {type: 'dining'},
-    {type: 'travel'},
-    {type: 'magazine'},
-    {type: 'realestate'}
+    {name: 'Home', type: 'home'},
+    {name: 'World', type: 'world'},
+    {name: 'National', type: 'national'},
+    {name: 'Politics', type: 'politics'},
+    {name: 'NY Region', type: 'nyregion'},
+    {name: 'Business', type: 'business'},
+    {name: 'Opinion', type: 'opinion'},
+    {name: 'Technology', type: 'technology'},
+    {name: 'Science', type: 'science'},
+    {name: 'Health', type: 'health'},
+    {name: 'Sports', type: 'sports'},
+    {name: 'Arts', type: 'arts'},
+    {name: 'Fashion', type: 'fashion'},
+    {name: 'Dining', type: 'dining'},
+    {name: 'Travel', type: 'travel'},
+    {name: 'Magazine', type: 'magazine'},
+    {name: 'Real Estate', type: 'realestate'}
   ];
   res.status(200).json(sections);
-  // var urlList = [];
-  // request({
-  //   json: true
-  // }, function (error, response, body) {
-  //   if (!error && response.statusCode == 200) {
-  //     _.forEach(body.results, function (story) {
-  //       urlList.push(story.url);
-  //     });
-  //     res.status(200).json(urlList);
-  //     // console.log(body) // Show the HTML for the Google homepage.
-  //   }
-  // });
 };
 
 // Get a single nytimes
 exports.show = function(req, res) {
   var urlList = [];
   request({
-    url: 'http://api.nytimes.com/svc/topstories/v1/' + req.params.id + '.json?api-key=' + config.nyt.accessToken,
+    uri: 'http://api.nytimes.com/svc/topstories/v1/' + req.params.id + '.json',
+    qs: {
+      'api-key': config.nyt.accessToken
+    },
+    proxy: false,
     json: true
   }, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      _.forEach(body.results, function (story) {
-        urlList.push(story.url);
-      });
-      res.status(200).json(urlList);
-      // console.log(body) // Show the HTML for the Google homepage.
-    }
+    res.status(200).json(body.results);
   });
 };
 

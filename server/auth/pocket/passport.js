@@ -12,13 +12,11 @@ passport.deserializeUser(function(obj, done) {
 });
 
 exports.setup = function (User, config) {
-  console.log('checking pocket');
   passport.use(new PocketStrategy({
       consumerKey    : config.pocket.clientSecret,
       callbackURL    : config.pocket.callbackURL
     },
     function (username, accessToken, done) {
-      console.log(username);
       User.findOne({
         'pocket.username': username
       }, function(err, user) {

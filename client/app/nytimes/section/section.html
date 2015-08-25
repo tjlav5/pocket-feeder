@@ -1,0 +1,25 @@
+<!--<md-list>
+  <md-subheader class="md-no-sticky">NYTimes Sections</md-subheader>
+  <md-list-item ng-click="$state.go('auth.nytimesSection', {section: section.type})" ng-repeat="section in ctrl.sections">
+    <p> {{ section.name }} </p>
+    <md-checkbox class="md-secondary" ng-model="section.active"></md-checkbox>
+  </md-list-item>
+</md-list>-->
+<md-content layout="row" layout-wrap layout-align="center center">
+  <md-card ng-click="ctrl.toggleArticle(article)" ng-repeat="article in ctrl.articles" ng-class="{active: article.active}">
+    <img ng-if="!!article.multimedia.length && article.multimedia[0]" ng-src="{{ article.multimedia[0].url }}" class="md-card-image" />
+    <md-card-content>
+      <h2 class="md-title">{{ article.title }}</h2>
+      <p>{{ article.abstract }}</p>
+    </md-card-content>
+  </md-card>
+</md-content>
+<md-button ng-show="ctrl.activeArticles.length > 0" ng-click="ctrl.archive()" class="md-fab archive-btn" aria-label="Archive">
+  <md-icon md-svg-icon="assets/icons/backup_white.svg"></md-icon>
+</md-button>
+
+
+
+
+
+<!-- <md-button class="md-raised md-primary" ng-click="ctrl.archive()">Archive</md-button> -->

@@ -1,0 +1,14 @@
+md-card {
+  opacity: 0.6;
+  cursor: pointer;
+  flex: 0 0 250px;
+  &.active {
+    opacity: 1;
+  }
+}
+
+.archive-btn {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+}

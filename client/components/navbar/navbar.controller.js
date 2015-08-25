@@ -18,7 +18,7 @@ angular.module('pocketFeederApp')
 
     $scope.logout = function() {
       Auth.logout();
-      $state.go('main.loggedOut');
+      $state.go('login');
     };
 
     $scope.isActive = function(route) {

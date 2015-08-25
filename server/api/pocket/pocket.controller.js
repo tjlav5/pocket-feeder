@@ -24,13 +24,13 @@ exports.show = function(req, res) {
 
 // Creates a new pocket in the DB.
 exports.create = function(req, res) {
-  console.log(req.body.length);
-  console.log(req.user);
+  console.log(req.body);
   var articles = [];
-  _.forEach(req.body, function (url) {
+  _.forEach(req.body.articles, function (article) {
     articles.push({
       action: 'add',
-      url: url
+      url: article.url,
+      tags: ['NYTimes', article.section]
     });
   });
   request({
@@ -39,9 +39,10 @@ exports.create = function(req, res) {
       consumer_key: config.pocket.clientSecret,
       access_token: req.user.pocket.accessToken,
       actions: JSON.stringify(articles)
-    }
+    },
+    proxy: false
   }, function (err, r, body) {
-    console.log(r.request);
+    console.log(err);
     res.status(200).send(body);
   });
 };

@@ -1,7 +1,7 @@
 <md-list>
   <md-subheader class="md-no-sticky">NYTimes Sections</md-subheader>
-  <md-list-item ng-repeat="section in ctrl.sections">
-    <p> {{ section.type }} </p>
+  <md-list-item ng-click="$state.go('auth.nytimesSection', {section: section.type})" ng-repeat="section in ctrl.sections">
+    <p> {{ section.name }} </p>
     <md-checkbox class="md-secondary" ng-model="section.active"></md-checkbox>
   </md-list-item>
 </md-list>
