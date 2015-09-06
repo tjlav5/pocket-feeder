@@ -32,11 +32,11 @@ module.exports = function(app) {
   app.use(cookieParser());
   app.use(session({
     secret: config.secrets.session,
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     store: new mongoStore({
       mongooseConnection: mongoose.connection,
-      db: 'pocketfeeder'
+      db: mongoose.connection.db
     })
   }));
   app.use(passport.initialize());

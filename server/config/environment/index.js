@@ -49,7 +49,7 @@ var all = {
 
   pocket: {
     clientSecret: process.env.POCKET_SECRET,
-    callbackURL:  (process.env.DOMAIN || '') + '/auth/pocket/callback'
+    callbackURL: (process.env.DOMAIN || '') + '/auth/pocket/callback'
   },
 
   nyt: {
